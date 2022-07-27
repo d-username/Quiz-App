@@ -14,7 +14,10 @@ function CreateQuestionsForm() {
     console.log('resetting')
     event.preventDefault()
 
-
+    setQuestionList([{
+      question: '',
+      answerList: [{ answer: '', isThisCorrect: false }],
+    }]);
   }
 
   const handleAnswerChange = (e, index, index2) => {
@@ -153,7 +156,7 @@ function CreateQuestionsForm() {
         <button
           className='button-reset'
           id='add-new-question-button'
-          onClick={addQuestion}
+          onClick={(e) => addQuestion(e)}
         >
           <span className='material-symbols-outlined'>add</span>
           add question
