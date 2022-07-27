@@ -1,5 +1,5 @@
 import LoginPage from './components/login/LoginPage';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/login/dashboard/Dashboard';
 import { useState } from 'react';
 import './App.css';
 
