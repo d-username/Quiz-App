@@ -3,13 +3,24 @@ import { useState } from 'react';
 function CreateQuestionsForm() {
   const [questionList, setQuestionList] = useState([
     {
-      question: '1 question',
-      answerList: [{ answer: '1 answer' }],
+      question: '',
+      answerList: [{ answer: '' }],
     }
   ]);
 
   const handleSubmit = () => {};
-  const handleAnswerChange = () => {};
+
+  const handleAnswerChange = (e, index, index2) => {
+    e.preventDefault()
+        const { name, value } = e.target;
+        
+        let copyQuestionList = [...questionList];
+        let questionAtIndex = copyQuestionList[index];
+        let theAnswers = questionAtIndex.answerList;
+
+        theAnswers[index2][name] = value
+        setQuestionList(copyQuestionList)
+  };
 
     const removeAnswer = (event, index, index2) => {
         event.preventDefault()
@@ -42,6 +53,7 @@ function CreateQuestionsForm() {
         let list = [...questionList];
         list[index][name] = value;
         setQuestionList(list);
+        console.log(questionList)
     };
 
     const addAnswer = (e, index) => {
@@ -76,7 +88,7 @@ function CreateQuestionsForm() {
                   name='answer'
                   placeholder='answer'
                   value={singleAnswer.answer}
-                  onChange={(e) => handleAnswerChange(e, index2)}
+                  onChange={(e) => handleAnswerChange(e, index, index2)}
                 ></input>
                 <button onClick={(event) => removeAnswer(event, index, index2)}>
                   remove answer
