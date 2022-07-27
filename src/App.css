@@ -9,7 +9,7 @@ body {
 }
 
 .dashboard {
-    background-color: lightblue;
+    background-color: white;
     width: 100vw;
     height: 100vh;
     display: grid;
@@ -18,8 +18,12 @@ body {
 
 .main {
     border: 1px solid red;
-    margin: 10px
+    margin: 10px;
+    overflow-y: scroll;
+}
 
+.main::-webkit-scrollbar {
+    display: none;
 }
 
 .aside {
@@ -33,6 +37,40 @@ body {
         margin: 10px;
 }
 
-.question-form {
-    border: 1px dashed red;
+.question-panel {
+    margin: 20px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}
+
+.question-form-input {
+    background-color: lightblue;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 5px;
+    width: -webkit-fill-available;
+}
+
+.answer-form-input {
+    background-color: lightblue;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 5px;
+    width: -webkit-fill-available;
+}
+
+.row-flex {
+    display: flex;
+    gap: 20px
+}
+
+.button-reset {
+    border: none;
+    background-color: transparent;
+}
+
+.spaceAround {
+    display: flex;
+    justify-content: space-around;
 }
