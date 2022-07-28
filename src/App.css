@@ -8,6 +8,10 @@ body {
     margin: 0
 }
 
+h1 {
+    padding-left: 50px;
+ }
+
 .dashboard {
     background-color: white;
     width: 100vw;
@@ -17,9 +21,9 @@ body {
 }
 
 .main {
-    border: 1px solid red;
-    margin: 10px;
+    padding: 10px;
     overflow-y: scroll;
+
 }
 
 .main::-webkit-scrollbar {
@@ -27,14 +31,17 @@ body {
 }
 
 .aside {
-    border: 1px solid blue;
-    margin: 10px;
-
+    background-color: lightblue;
+    margin: 20px;
+    border-radius: 10px;
 }
 
 .aside >* {
-        border: 1px solid yellow;
-        margin: 10px;
+        margin: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
 }
 
 .question-panel {
@@ -68,6 +75,10 @@ body {
 .button-reset {
     border: none;
     background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .spaceAround {
