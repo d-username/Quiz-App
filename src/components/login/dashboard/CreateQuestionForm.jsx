@@ -175,7 +175,7 @@ function CreateQuestionsForm() {
         <button
           id='question-submit-button'
           type='submit'
-          className='button-reset'
+          className='button-reset greenButton'
         >
           <span className='material-symbols-outlined'>done</span>
           submit

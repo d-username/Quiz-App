@@ -11,7 +11,12 @@ body {
 
 h1 {
     padding-left: 50px;
+    margin-bottom: 35px;
  }
+
+h2 {
+    margin-left: 50px;
+}
 
 .dashboard {
     background-color: white;
@@ -104,4 +109,16 @@ h1 {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 10px;
     cursor: pointer;
+    line-height: 45px;
+}
+
+.takequiz-answer-card{
+    display: flex;
+    gap: 20px;
+}
+
+.greenButton {
+    background: lightgreen;
+    border-radius: 5px;
+    padding: 5px;
 }
