@@ -1,12 +1,14 @@
 import CreateQuestionsForm from "./CreateQuestionForm";
 import TakeQuiz from "./TakeQuiz";
 import QuizList from "./QuizList";
+import ResultBoard from "./ResultBoard";
 import { useEffect, useState } from 'react';
 
 export default function Dashboard() {
   const [active, setActive] = useState('CreateQuestionsForm');
   const [quizes, setQuizes] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState()
+  const [showResults, setShowResults] = useState(false)
 
   useEffect(() => {
     fetch('http://localhost:3030/question-sets')
@@ -28,7 +30,10 @@ export default function Dashboard() {
             setCurrentQuiz={setCurrentQuiz}
           />
         )}
-        {active === 'TakeQuiz' && <TakeQuiz currentQuiz={currentQuiz} />}
+        {active === 'TakeQuiz' && (
+          <TakeQuiz currentQuiz={currentQuiz} setShowResults={setShowResults} />
+        )}
+        {showResults === true && <ResultBoard />}
       </main>
       <aside className='aside'>
         <div onClick={() => setActive('CreateQuestionsForm')}>

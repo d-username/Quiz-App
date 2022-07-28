@@ -29,7 +29,7 @@ h2 {
 .main {
     padding: 10px;
     overflow-y: scroll;
-
+    position: relative;
 }
 
 .main::-webkit-scrollbar {
@@ -104,9 +104,6 @@ h2 {
     justify-content: space-around;
 }
 
-/* .takequiz {
-} */
-
 .quizlist-item {
     margin: 20px;
     padding: 20px;
@@ -133,4 +130,19 @@ h2 {
     background: lightgreen;
     border-radius: 5px;
     padding: 5px;
+}
+
+.result-board {
+    background-color: blueviolet;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    width: 525px;
+    height: 370px;
+
 }

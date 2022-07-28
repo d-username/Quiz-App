@@ -1,25 +1,25 @@
 import { useState } from 'react';
 
-function TakeQuiz({ currentQuiz }) {
+function TakeQuiz({ currentQuiz, setShowResults }) {
   const [answers, setAnswers] = useState(currentQuiz.questions);
-  const [score, setScore] = useState({goodAnswers: 0})
+  const [score, setScore] = useState({ goodAnswers: 0 });
 
   const handleRadioChange = (event, index, index2) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    let answersCopy = answers
-    let theParticularQuestion = answersCopy[index]
-    let theParticularAnswerList = [...theParticularQuestion.answerList]
+    let answersCopy = answers;
+    let theParticularQuestion = answersCopy[index];
+    let theParticularAnswerList = [...theParticularQuestion.answerList];
 
     theParticularAnswerList.forEach((answer) => {
-      delete answer.givenAnswer
-    })
+      delete answer.givenAnswer;
+    });
 
-    let theAnswerToChange = theParticularAnswerList[index2]
-    theAnswerToChange.givenAnswer = true
+    let theAnswerToChange = theParticularAnswerList[index2];
+    theAnswerToChange.givenAnswer = true;
 
-    setAnswers(answersCopy)
-    console.log(answers)
+    setAnswers(answersCopy);
+    console.log(answers);
   };
 
   const resetFields = (e) => {
@@ -28,32 +28,36 @@ function TakeQuiz({ currentQuiz }) {
   };
 
   const SubmitAnswers = (e) => {
-    e.preventDefault()
-    console.log('submitting here')
+    e.preventDefault();
+    console.log('submitting here');
 
-    let copyAnswers = answers
+    let copyAnswers = answers;
 
     for (let q = 0; q < copyAnswers.length; q++) {
-      let currentQuestion = copyAnswers[q]
+      let currentQuestion = copyAnswers[q];
       let currentQsAnswerList = currentQuestion.answerList;
 
       currentQsAnswerList.forEach((answer) => {
-        console.log(answer)
+        console.log(answer);
         if (answer.givenAnswer === true && answer.isThisCorrect === true) {
           console.log('you have chosen: ', answer.answer, 'and it is CORRECT');
 
-          let scoreCopy = score
+          let scoreCopy = score;
           scoreCopy.goodAnswers += 1;
           setScore(scoreCopy);
         }
         if (answer.givenAnswer === true && answer.isThisCorrect === false) {
-          console.log('you have chosen: ', answer.answer, 'but it is INCORRECT');
+          console.log(
+            'you have chosen: ',
+            answer.answer,
+            'but it is INCORRECT'
+          );
         }
-
       });
     }
     console.log('the score is: ', score);
-  }
+    setShowResults(true)
+  };
 
   return (
     <form className='takequiz'>
