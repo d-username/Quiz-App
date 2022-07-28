@@ -2,22 +2,22 @@ import { useState } from 'react';
 
 function TakeQuiz({ currentQuiz }) {
   const [answers, setAnswers] = useState(currentQuiz.questions);
-  const [score, setScore] = useState(0)
 
-  const handleCheckboxChange = (event, index, index2) => {
-    event.preventDefault();
-    const value = event.target.checked;
-    //console.log(index, index2, value)
-    let copyAnswers = answers
-    //console.log(copyAnswers)
-    let theParticularQuestion = copyAnswers[index]
-    //console.log(theParticularQuestion);
-    let theParticularAnswer = theParticularQuestion.answerList[index2]
-    //console.log(theParticularAnswer);
-    theParticularAnswer.givenAnswer = value
-    //console.log(theParticularAnswer);
+  const handleRadioChange = (event, index, index2) => {
+    event.preventDefault()
 
-    setAnswers(copyAnswers);
+    let answersCopy = answers
+    let theParticularQuestion = answersCopy[index]
+    let theParticularAnswerList = [...theParticularQuestion.answerList]
+
+    theParticularAnswerList.forEach((answer) => {
+      delete answer.givenAnswer
+    })
+
+    let theAnswerToChange = theParticularAnswerList[index2]
+    theAnswerToChange.givenAnswer = true
+
+    setAnswers(answersCopy)
     console.log(answers)
   };
 
@@ -30,29 +30,23 @@ function TakeQuiz({ currentQuiz }) {
     e.preventDefault()
     console.log('submitting here')
 
-    for (let q = 0; q < answers.length; q++) {
-      let currentQuestion = answers[q];
-      console.log('current question', currentQuestion);
+    let copyAnswers = answers
+
+    for (let q = 0; q < copyAnswers.length; q++) {
+      let currentQuestion = copyAnswers[q]
+      //console.log('current question', currentQuestion)
       let currentQsAnswerList = currentQuestion.answerList;
-      console.log('current questions anwerlist', currentQsAnswerList);
+      //console.log('current questions anwerlist', currentQsAnswerList);
 
       currentQsAnswerList.forEach((answer) => {
-        console.log(answer);
+        //console.log(answer)
         if (answer.givenAnswer === true && answer.isThisCorrect === true) {
-          console.log('you have chosen: ', answer.answer, 'and it is CORRECT');
-
-          // let copyScore = score;
-          // copyScore++;
-          // setScore(copyScore);
-          // console.log('score is: ', score);
+          //console.log('you have chosen: ', answer.answer, 'and it is CORRECT');
         }
         if (answer.givenAnswer === true && answer.isThisCorrect === false) {
-          console.log(
-            'you have chosen: ',
-            answer.answer,
-            'but it is INCORRECT'
-          );
+          //console.log('you have chosen: ', answer.answer, 'but it is INCORRECT');
         }
+
       });
     }
   }
@@ -71,9 +65,10 @@ function TakeQuiz({ currentQuiz }) {
               {question.answerList.map((answer, index2) => (
                 <li key={index2} className='takequiz-answer-card'>
                   <input
-                    type='checkbox'
-                    // value= --- i will need this for resetFields()
-                    onChange={(e) => handleCheckboxChange(e, index, index2)}
+                    type='radio'
+                    name={index}
+                    value={index2}
+                    onChange={(e) => handleRadioChange(e, index, index2)}
                   />
                   <div className='takequiz-answer'>{answer.answer}</div>
                 </li>

@@ -57,6 +57,18 @@ h2 {
     border-radius: 10px;
 }
 
+.question-form-title {
+    margin: 20px;
+}
+
+.title-input {
+    background-color: lightblue;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 5px;
+    width: -webkit-fill-available;
+}
+
 .question-form-input {
     background-color: lightblue;
     border: 1px solid grey;

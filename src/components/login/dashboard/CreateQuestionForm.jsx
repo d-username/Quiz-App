@@ -90,7 +90,20 @@ function CreateQuestionsForm() {
 
   return (
     <form className='question-form' onSubmit={handleSubmit}>
-      <h1>Create Questions</h1>
+      <h1>Create Quiz</h1>
+      <div className='question-form-title'>
+        <p >Title</p>
+        <input
+          className='title-input'
+          type='text'
+          label='title'
+          name='title'
+          placeholder='title'
+          // value={singleQuestion.question}
+          // onChange={(e) => handleQuestionChange(e, index)}
+        ></input>
+      </div>
+
       {questionList.map((singleQuestion, index) => (
         <div key={index} className='question-panel'>
           <p>Question #{index + 1}</p>
