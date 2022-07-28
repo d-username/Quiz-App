@@ -132,8 +132,15 @@ h2 {
     padding: 5px;
 }
 
+.whiteButton {
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .result-board {
-    background-color: blueviolet;
+    background-color: lightblue;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     position: absolute;
     left: 0;
     right: 0;
@@ -144,5 +151,10 @@ h2 {
     place-items: center;
     width: 525px;
     height: 370px;
+    border-radius: 10px;
+}
 
+.result-title {
+    font-size: 20px;
+    font-weight: bold;
 }

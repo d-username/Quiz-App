@@ -9,6 +9,7 @@ export default function Dashboard() {
   const [quizes, setQuizes] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState()
   const [showResults, setShowResults] = useState(false)
+  const [score, setScore] = useState({ goodAnswers: 0 });
 
   useEffect(() => {
     fetch('http://localhost:3030/question-sets')
@@ -31,9 +32,20 @@ export default function Dashboard() {
           />
         )}
         {active === 'TakeQuiz' && (
-          <TakeQuiz currentQuiz={currentQuiz} setShowResults={setShowResults} />
+          <TakeQuiz
+            currentQuiz={currentQuiz}
+            setShowResults={setShowResults}
+            score={score}
+            setScore={setScore}
+          />
         )}
-        {showResults === true && <ResultBoard />}
+        {showResults === true && (
+          <ResultBoard
+            score={score}
+            currentQuiz={currentQuiz}
+            setShowResults={setShowResults}
+          />
+        )}
       </main>
       <aside className='aside'>
         <div onClick={() => setActive('CreateQuestionsForm')}>

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
-function TakeQuiz({ currentQuiz, setShowResults }) {
+function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
   const [answers, setAnswers] = useState(currentQuiz.questions);
-  const [score, setScore] = useState({ goodAnswers: 0 });
 
   const handleRadioChange = (event, index, index2) => {
     event.preventDefault();
