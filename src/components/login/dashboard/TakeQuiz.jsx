@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 function TakeQuiz({ currentQuiz }) {
   const [answers, setAnswers] = useState(currentQuiz.questions);
+  const [score, setScore] = useState({goodAnswers: 0})
 
   const handleRadioChange = (event, index, index2) => {
     event.preventDefault()
@@ -34,21 +35,24 @@ function TakeQuiz({ currentQuiz }) {
 
     for (let q = 0; q < copyAnswers.length; q++) {
       let currentQuestion = copyAnswers[q]
-      //console.log('current question', currentQuestion)
       let currentQsAnswerList = currentQuestion.answerList;
-      //console.log('current questions anwerlist', currentQsAnswerList);
 
       currentQsAnswerList.forEach((answer) => {
-        //console.log(answer)
+        console.log(answer)
         if (answer.givenAnswer === true && answer.isThisCorrect === true) {
-          //console.log('you have chosen: ', answer.answer, 'and it is CORRECT');
+          console.log('you have chosen: ', answer.answer, 'and it is CORRECT');
+
+          let scoreCopy = score
+          scoreCopy.goodAnswers += 1;
+          setScore(scoreCopy);
         }
         if (answer.givenAnswer === true && answer.isThisCorrect === false) {
-          //console.log('you have chosen: ', answer.answer, 'but it is INCORRECT');
+          console.log('you have chosen: ', answer.answer, 'but it is INCORRECT');
         }
 
       });
     }
+    console.log('the score is: ', score);
   }
 
   return (
