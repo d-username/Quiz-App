@@ -90,6 +90,7 @@ function CreateQuestionsForm() {
 
   return (
     <form className='question-form' onSubmit={handleSubmit}>
+      <h1>Create Questions</h1>
       {questionList.map((singleQuestion, index) => (
         <div key={index} className='question-panel'>
           <p>Question #{index + 1}</p>
