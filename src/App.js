@@ -4,17 +4,14 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState('David');
+  const [loggedInUser, setLoggedInUser] = useState('');
 
   return (
     <div className='App'>
       {!loggedInUser ? (
-        <LoginPage
-          setLoggedInUser={setLoggedInUser}
-          loggedInUser={loggedInUser}
-        />
+        <LoginPage setLoggedInUser={setLoggedInUser} />
       ) : (
-        <Dashboard />
+        <Dashboard setLoggedInUser={setLoggedInUser} />
       )}
     </div>
   );

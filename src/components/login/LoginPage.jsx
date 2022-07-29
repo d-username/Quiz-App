@@ -1,34 +1,38 @@
 import { useState } from 'react';
 import LoginForm from './LoginForm';
 
-function LoginPage({ loggedInUser, setloggedInUser }) {
-  const [userInput, setUserInput] = useState('');
+function LoginPage({ setLoggedInUser }) {
+  const [userInput, setUserInput] = useState({email: '', password: ''});
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    const { value, name } = event.target;
+  const myloginDetails = {email: 'czdavid93@gmail.com', password: '11111'}
 
-    setUserInput({
-      ...userInput,
-      [name]: value,
-    });
-    console.log(userInput);
-  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-  const loginUser = (event) => {
-    event.preventDefault();
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userInput),
+    let copyUserInput = userInput
+    copyUserInput[name] = value
+    setUserInput(copyUserInput);
+
+    console.log(userInput)
+  }
+
+    const handleLogin = (e) => {
+      e.preventDefault();
+      console.log('userinput',userInput)
+      console.log('mylogindetails', myloginDetails);
+
+      if (userInput.email === myloginDetails.email && userInput.password === myloginDetails.password) {
+        setLoggedInUser('David')
+        console.log('matching')
+      }
     };
-    fetch('URL', requestOptions).then((response) => response.json());
-    //this funcion will post to DB where auth. also happens then setloggedInUser.
-  };
 
   return (
     <div>
-      <LoginForm handleChange={handleChange} handleSubmit={loginUser} />
+      <LoginForm
+        handleLogin={handleLogin}
+        handleInputChange={handleInputChange}
+      />
     </div>
   );
 }

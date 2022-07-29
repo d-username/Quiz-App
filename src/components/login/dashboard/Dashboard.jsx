@@ -4,7 +4,7 @@ import QuizList from "./QuizList";
 import ResultBoard from "./ResultBoard";
 import { useEffect, useState } from 'react';
 
-export default function Dashboard() {
+export default function Dashboard({setLoggedInUser}) {
   const [active, setActive] = useState('CreateQuestionsForm');
   const [quizes, setQuizes] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState()
@@ -12,11 +12,11 @@ export default function Dashboard() {
   const [score, setScore] = useState({ goodAnswers: 0 });
 
   useEffect(() => {
-    fetch('http://localhost:3030/question-sets')
+    fetch('http://localhost:3005/questionSets')
       .then((res) => res.json())
       .then((data) => {
-        setQuizes(data.questionSets);
-        console.log(quizes);
+        setQuizes(data);
+        console.log('quizes', quizes);
       });
   }, []);
 
@@ -44,6 +44,7 @@ export default function Dashboard() {
             score={score}
             currentQuiz={currentQuiz}
             setShowResults={setShowResults}
+            setScore={setScore}
           />
         )}
       </main>
@@ -54,7 +55,7 @@ export default function Dashboard() {
         <div onClick={() => setActive('QuizList')}>
           <span class='material-symbols-outlined'>list</span>Quiz List
         </div>
-        <div>
+        <div onClick={() => setLoggedInUser('')}>
           <span class='material-symbols-outlined'>logout</span>Logout
         </div>
       </aside>

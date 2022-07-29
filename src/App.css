@@ -10,7 +10,6 @@ body {
 }
 
 h1 {
-    padding-left: 50px;
     margin-bottom: 35px;
  }
 
@@ -157,4 +156,19 @@ h2 {
 .result-title {
     font-size: 20px;
     font-weight: bold;
+}
+
+.login-form {
+        box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        display: grid;
+        place-items: center;
+        width: 400px;
+        height: 490px;
+        border-radius: 10px;
 }

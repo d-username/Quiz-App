@@ -1,7 +1,8 @@
-function ResultBoard({ score, currentQuiz, setShowResults }) {
-
-    console.log('i wanna check your lenght', currentQuiz)
-    
+function ResultBoard({ score, currentQuiz, setShowResults, setScore }) {
+  const handleCloseButton = () => {
+    setShowResults(false);
+    setScore({ goodAnswers: 0 });
+  };
 
   return (
     <div className='result-board'>
@@ -13,7 +14,7 @@ function ResultBoard({ score, currentQuiz, setShowResults }) {
       </p>
       <button
         className='button-reset whiteButton'
-        onClick={() => setShowResults(false)}
+        onClick={() => handleCloseButton(false)}
       >
         <span class='material-symbols-outlined'>close</span>close
       </button>

@@ -8,7 +8,23 @@ function CreateQuestionsForm() {
     }
   ]);
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('submitting here');
+    
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(questionList)
+    };
+    fetch(
+      'http://localhost:3005/questionSets/',
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => console.log('this is the response data', data));
+  };
+
 
   const resetFields = (event) => {
     console.log('resetting')
@@ -88,8 +104,12 @@ function CreateQuestionsForm() {
         setQuestionList(copyQuestionList);
     };
 
+    const handleTitleChange = () => {
+      console.log(questionList)
+    }
+
   return (
-    <form className='question-form' onSubmit={handleSubmit}>
+    <form className='question-form' onSubmit={(e) => handleSubmit(e)}>
       <h1>Create Quiz</h1>
       <div className='question-form-title'>
         <p >Title</p>
@@ -99,8 +119,7 @@ function CreateQuestionsForm() {
           label='title'
           name='title'
           placeholder='title'
-          // value={singleQuestion.question}
-          // onChange={(e) => handleQuestionChange(e, index)}
+          onChange={(e) => handleTitleChange(e)}
         ></input>
       </div>
 
