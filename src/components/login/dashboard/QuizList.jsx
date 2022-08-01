@@ -13,7 +13,9 @@ function QuizList({ setActive, quizes, setCurrentQuiz }) {
           className='quizlist-item'
           onClick={() => handleSelectedQuiz(quiz)}
         >
-          <p>{quiz.title}</p>
+          <p>Quiz number: {index + 1}</p>
+          <p>Title: {quiz.title}</p>
+          <p>Nr of questions: {quiz.questionsSet.length}</p>
         </li>
       ))}
     </ul>

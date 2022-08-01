@@ -9,8 +9,8 @@ function ResultBoard({ score, currentQuiz, setShowResults, setScore }) {
       <p className='result-title'>Well Done!</p>
       <img src='/images/check.png' alt='check-icon' width={100} />
       <p>
-        Your result is: {score.goodAnswers} out of{' '}
-        {currentQuiz.questions.length}
+        Your result is: {score.goodAnswers} out of {' '}
+        {currentQuiz.questionsSet.length}
       </p>
       <button
         className='button-reset whiteButton'

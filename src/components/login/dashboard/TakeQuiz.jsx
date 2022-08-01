@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
-  const [answers, setAnswers] = useState(currentQuiz.questions);
+  const [answers, setAnswers] = useState(currentQuiz.questionsSet);
+
 
   const handleRadioChange = (event, index, index2) => {
     event.preventDefault();
@@ -18,7 +19,6 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
     theAnswerToChange.givenAnswer = true;
 
     setAnswers(answersCopy);
-    console.log(answers);
   };
 
   const resetFields = (e) => {
@@ -29,6 +29,7 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
   const SubmitAnswers = (e) => {
     e.preventDefault();
     console.log('submitting here');
+    console.log('answers are here: ',answers);
 
     let copyAnswers = answers;
 
@@ -37,7 +38,6 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
       let currentQsAnswerList = currentQuestion.answerList;
 
       currentQsAnswerList.forEach((answer) => {
-        console.log(answer);
         if (answer.givenAnswer === true && answer.isThisCorrect === true) {
           console.log('you have chosen: ', answer.answer, 'and it is CORRECT');
 
@@ -54,7 +54,6 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
         }
       });
     }
-    console.log('the score is: ', score);
     setShowResults(true)
   };
 
@@ -62,9 +61,8 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
     <form className='takequiz'>
       <h1>Take Quiz</h1>
       <h2>{currentQuiz.title}</h2>
-
       <ul className='takequiz-question-list'>
-        {currentQuiz.questions.map((question, index) => (
+        {currentQuiz.questionsSet.map((question, index) => (
           <li key={index} className='takequiz-question-card'>
             <div className='takequiz-question'>{question.question}</div>
 

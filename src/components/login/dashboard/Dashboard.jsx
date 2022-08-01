@@ -4,11 +4,11 @@ import QuizList from "./QuizList";
 import ResultBoard from "./ResultBoard";
 import { useEffect, useState } from 'react';
 
-export default function Dashboard({setLoggedInUser}) {
+export default function Dashboard({ setLoggedInUser, loggedInUser }) {
   const [active, setActive] = useState('CreateQuestionsForm');
   const [quizes, setQuizes] = useState([]);
-  const [currentQuiz, setCurrentQuiz] = useState()
-  const [showResults, setShowResults] = useState(false)
+  const [currentQuiz, setCurrentQuiz] = useState();
+  const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState({ goodAnswers: 0 });
 
   useEffect(() => {
@@ -16,14 +16,16 @@ export default function Dashboard({setLoggedInUser}) {
       .then((res) => res.json())
       .then((data) => {
         setQuizes(data);
-        console.log('quizes', quizes);
       });
-  }, []);
+  }, [active]);
 
   return (
     <div className='dashboard'>
       <main className='main'>
-        {active === 'CreateQuestionsForm' && <CreateQuestionsForm />}
+        {active === 'CreateQuestionsForm' && (
+          <CreateQuestionsForm
+          />
+        )}
         {active === 'QuizList' && (
           <QuizList
             setActive={setActive}
@@ -49,6 +51,10 @@ export default function Dashboard({setLoggedInUser}) {
         )}
       </main>
       <aside className='aside'>
+        <div>
+          <span class='material-symbols-outlined'>person</span>user:{' '}
+          {loggedInUser}
+        </div>
         <div onClick={() => setActive('CreateQuestionsForm')}>
           <span class='material-symbols-outlined'>edit</span>Create Quiz
         </div>
