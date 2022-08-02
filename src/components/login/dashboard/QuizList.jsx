@@ -7,15 +7,26 @@ function QuizList({ setActive, quizes, setCurrentQuiz }) {
 
   return (
     <ul className='quizlist'>
+      <h1>Quiz List</h1>
       {quizes.map((quiz, index) => (
         <li
           key={index}
           className='quizlist-item'
-          onClick={() => handleSelectedQuiz(quiz)}
+          // onClick={() => handleSelectedQuiz(quiz)}
         >
-          <p>Quiz number: {index + 1}</p>
-          <p>Title: {quiz.title}</p>
-          <p>Nr of questions: {quiz.questionsSet.length}</p>
+          <div>
+            <p>Title: {quiz.title}</p>
+            {/* <p>Quiz number: {index + 1}</p> */}
+
+            <p>Nr of questions: {quiz.questionsSet.length}</p>
+          </div>
+
+          <button
+            className='button-reset greenButton'
+            onClick={() => handleSelectedQuiz(quiz)}
+          >
+            Take Quiz
+          </button>
         </li>
       ))}
     </ul>

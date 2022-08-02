@@ -2,6 +2,7 @@ import CreateQuestionsForm from "./CreateQuestionForm";
 import TakeQuiz from "./TakeQuiz";
 import QuizList from "./QuizList";
 import ResultBoard from "./ResultBoard";
+import Stats from "./Stats";
 import { useEffect, useState } from 'react';
 
 export default function Dashboard({ setLoggedInUser, loggedInUser }) {
@@ -10,6 +11,7 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
   const [currentQuiz, setCurrentQuiz] = useState();
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState({ goodAnswers: 0 });
+  const [statsData, setStatsData] = useState();
 
   useEffect(() => {
     fetch('http://localhost:3005/questionSets')
@@ -19,13 +21,19 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
       });
   }, [active]);
 
+    useEffect(() => {
+      fetch('http://localhost:3005/stats')
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('stats data', data)
+          setStatsData(data)
+        });
+    }, [active]);
+
   return (
     <div className='dashboard'>
       <main className='main'>
-        {active === 'CreateQuestionsForm' && (
-          <CreateQuestionsForm
-          />
-        )}
+        {active === 'CreateQuestionsForm' && <CreateQuestionsForm />}
         {active === 'QuizList' && (
           <QuizList
             setActive={setActive}
@@ -41,6 +49,7 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
             setScore={setScore}
           />
         )}
+        {active === 'Stats' && <Stats statsData={statsData} />}
         {showResults === true && (
           <ResultBoard
             score={score}
@@ -53,13 +62,16 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
       <aside className='aside'>
         <div>
           <span class='material-symbols-outlined'>person</span>user:{' '}
-          {loggedInUser}
+          {loggedInUser.name}
         </div>
         <div onClick={() => setActive('CreateQuestionsForm')}>
           <span class='material-symbols-outlined'>edit</span>Create Quiz
         </div>
         <div onClick={() => setActive('QuizList')}>
           <span class='material-symbols-outlined'>list</span>Quiz List
+        </div>
+        <div onClick={() => setActive('Stats')}>
+          <span class='material-symbols-outlined'>bar_chart</span>Info
         </div>
         <div onClick={() => setLoggedInUser('')}>
           <span class='material-symbols-outlined'>logout</span>Logout

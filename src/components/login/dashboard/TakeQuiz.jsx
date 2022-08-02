@@ -44,6 +44,7 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
           let scoreCopy = score;
           scoreCopy.goodAnswers += 1;
           setScore(scoreCopy);
+
         }
         if (answer.givenAnswer === true && answer.isThisCorrect === false) {
           console.log(

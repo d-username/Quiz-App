@@ -4,7 +4,7 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState('David');
+  const [loggedInUser, setLoggedInUser] = useState({});
 
   return (
     <div className='App'>

@@ -1,4 +1,4 @@
-function LoginForm({ handleInputChange, handleLogin }) {
+function LoginForm({ handleInputChange, handleLogin}) {
   return (
     <form className='login-form' onSubmit={(e) => handleLogin(e)}>
       <h1>login</h1>
@@ -23,10 +23,16 @@ function LoginForm({ handleInputChange, handleLogin }) {
         placeholder='password'
       ></input>
 
-      <button id='login-submit-button' className="button-reset greenButton" type='submit' variant='contained'>
+      <button
+        id='login-submit-button'
+        className='button-reset greenButton'
+        type='submit'
+        variant='contained'
+      >
         <span class='material-symbols-outlined'>login</span>
         Login
       </button>
+
     </form>
   );
 }

@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
 function LoginPage({ setLoggedInUser }) {
-  const [userInput, setUserInput] = useState({email: '', password: ''});
+  const [userInput, setUserInput] = useState({name: '', email: '', password: ''});
+  const [isRegister, setIsRegister] = useState('login');
+  const [users, setUsers] = useState()
 
-  const myloginDetails = {email: 'czdavid93@gmail.com', password: '11111'}
+  useEffect(() => {
+    fetch('http://localhost:3005/users')
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data)
+        console.log(users);
+      });
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -12,27 +22,57 @@ function LoginPage({ setLoggedInUser }) {
     let copyUserInput = userInput
     copyUserInput[name] = value
     setUserInput(copyUserInput);
-
     console.log(userInput)
   }
 
     const handleLogin = (e) => {
       e.preventDefault();
-      console.log('userinput',userInput)
-      console.log('mylogindetails', myloginDetails);
 
-      if (userInput.email === myloginDetails.email && userInput.password === myloginDetails.password) {
-        setLoggedInUser('David')
-        console.log('matching')
+      console.log('trying to log in')
+      
+      for(let i=0; i<users.length; i++) {
+        if (
+          users[i].email === userInput.email &&
+          users[i].password === userInput.password
+        ) {
+          setLoggedInUser(users[i]);
+          console.log('matching')
+        }
       }
     };
 
+    const handleRegister = (e) => {
+       e.preventDefault();
+       console.log('registering')
+
+       const requestOptions = {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(userInput),
+       };
+       fetch('http://localhost:3005/users/', requestOptions)
+         .then((response) => response.json())
+         .then((data) => console.log('this is the response data', data));
+
+       setUserInput({ name: '', email: '', password: '' });
+    }
+
   return (
-    <div>
-      <LoginForm
-        handleLogin={handleLogin}
-        handleInputChange={handleInputChange}
-      />
+    <div className='login-page'>
+      {isRegister === 'register' && (
+        <RegisterForm
+          handleInputChange={handleInputChange}
+          handleRegister={handleRegister}
+          setIsRegister={setIsRegister}
+        />
+      )}
+      {isRegister === 'login' && (
+        <LoginForm
+          handleLogin={handleLogin}
+          handleInputChange={handleInputChange}
+          setIsRegister={setIsRegister}
+        />
+      )}
     </div>
   );
 }

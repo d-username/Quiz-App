@@ -127,6 +127,7 @@ function CreateQuestionsForm() {
 
   const handleCheckboxChange = (event, index, index2) => {
     event.preventDefault();
+    console.log('clicked')
     const value = event.target.checked;
 
     let copyQuestionList = {...questionList};
