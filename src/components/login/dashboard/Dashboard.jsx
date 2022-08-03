@@ -12,6 +12,8 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState({ goodAnswers: 0 });
   const [statsData, setStatsData] = useState();
+  const [nrOfUsers, setNrOfUsers] = useState();
+  const [quizDeleted, setQuizDeleted] = useState(0)
 
   useEffect(() => {
     fetch('http://localhost:3005/questionSets')
@@ -19,7 +21,7 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
       .then((data) => {
         setQuizes(data);
       });
-  }, [active]);
+  }, [active, quizDeleted]);
 
     useEffect(() => {
       fetch('http://localhost:3005/stats')
@@ -30,6 +32,22 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
         });
     }, [active]);
 
+       useEffect(() => {
+         fetch('http://localhost:3005/users')
+           .then((res) => res.json())
+           .then((data) => {
+             console.log('users data', data);
+             setNrOfUsers(data.length);
+           });
+       }, [active]); 
+
+  const deleteQuiz = () => {
+    console.log('deleted a quiz')
+    let nr = quizDeleted;
+    nr ++
+    setQuizDeleted(nr);
+  }
+
   return (
     <div className='dashboard'>
       <main className='main'>
@@ -39,6 +57,7 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
             setActive={setActive}
             quizes={quizes}
             setCurrentQuiz={setCurrentQuiz}
+            deleteQuiz={deleteQuiz}
           />
         )}
         {active === 'TakeQuiz' && (
@@ -49,7 +68,9 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
             setScore={setScore}
           />
         )}
-        {active === 'Stats' && <Stats statsData={statsData} />}
+        {active === 'Stats' && (
+          <Stats statsData={statsData} nrOfUsers={nrOfUsers} />
+        )}
         {showResults === true && (
           <ResultBoard
             score={score}

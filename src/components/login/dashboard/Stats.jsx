@@ -1,18 +1,24 @@
-export default function Stats({ statsData }) {
+export default function Stats({ statsData, nrOfUsers }) {
   return (
     <div>
-      <p>
-        Number of quizes taken <span>{statsData.quizes_taken}</span>
-      </p>
-      <p>
-        Number of good answers <span>{statsData.total_questions_answered}</span>
-      </p>
-      <p>
-        Number of good answers <span>{statsData.total_good_answers}</span>
-      </p>
-      <p>
-        Number of bad answers <span>{statsData.total_bad_answers}</span>
-      </p>
+      <h1>Info</h1>
+      <div className='stats-grid'>
+        <p className='stats-panels'>
+          Number of quizes taken{' '}
+          <span className='stats-number'>{statsData.quizes_taken}</span>
+        </p>
+        <p className='stats-panels'>
+          Number of users <span className='stats-number'>{nrOfUsers}</span>
+        </p>
+        <p className='stats-panels'>
+          Number of good answers{' '}
+          <span className='stats-number'>{statsData.total_good_answers}</span>
+        </p>
+        <p className='stats-panels'>
+          Number of bad answers{' '}
+          <span className='stats-number'>{statsData.total_bad_answers}</span>
+        </p>
+      </div>
     </div>
   );
 }

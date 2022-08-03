@@ -139,10 +139,11 @@ h2 {
     border-radius: 10px;
     cursor: pointer;
     border: solid 2px aquamarine;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
     align-items: center;
     background-color: #000027;
+    gap: 15px;
 }
 
 .takequiz-question-card {
@@ -237,6 +238,7 @@ h2 {
     height: 490px;
     border-radius: 10px;
     background-color: #000027;
+    height: fit-content;
 }
 
 .login-page {
@@ -280,5 +282,92 @@ h2 {
 
 
 .success-notification * {
+    color: #000027;
+}
+
+.stats-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.stats-panels {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: solid 2px aquamarine;
+    background-color: #000027;
+    display: grid;
+    text-align: center;
+    height: 200px;
+    align-items: center;
+}
+
+.stats-number {
+    font-size: 50px;
+}
+
+.register-input-div,
+.login-input-div {
+    display: flex;
+    align-items: center;
+    width: inherit;
+    padding: 30px
+}
+
+.login-no-account {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+
+.login-register-link{
+    color: aquamarine;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-register-link:hover {
+    transform: scale(1.1, 1.1);
+    -webkit-transform: scale(1.1, 1.1);
+    -moz-transform: scale(1.1, 1.1);
+}
+
+.login-form-input::placeholder{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.register-success-notification {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    background-color: #ff9900;
+    max-width: fit-content;
+    padding: 10px 50px 10px 10px;
+    border-radius: 8px 0px 0px 8px;
+    color: #000027;
+    font-weight: bold;
+    
+    position: absolute;
+    right: -500px;
+    top: 110px;
+    -webkit-animation: slide 0.5s forwards;
+    animation: registerSlide 0.5s forwards;
+}
+
+@-webkit-keyframes registerSlide {
+    100% {
+        right: 0;
+    }
+}
+
+@keyframes registerSlide {
+    100% {
+        right: 0;
+    }
+}
+
+.register-success-notification * {
     color: #000027;
 }

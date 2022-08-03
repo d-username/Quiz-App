@@ -58,6 +58,7 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
     setShowResults(true)
   };
 
+
   return (
     <form className='takequiz'>
       <h1>Take Quiz</h1>

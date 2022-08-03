@@ -177,6 +177,7 @@ function CreateQuestionsForm() {
           label='title'
           name='title'
           placeholder='title'
+          value={questionList.title}
           onChange={(e) => handleTitleChange(e)}
         ></input>
       </div>

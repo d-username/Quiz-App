@@ -1,27 +1,32 @@
-function LoginForm({ handleInputChange, handleLogin}) {
+function LoginForm({ handleInputChange, handleLogin, setIsRegister }) {
   return (
     <form className='login-form' onSubmit={(e) => handleLogin(e)}>
-      <h1>login</h1>
-      <label>email</label>
-      <input
-        className='login-form-input'
-        type='email'
-        label='Email'
-        variant='outlined'
-        name='email'
-        onChange={(e) => handleInputChange(e)}
-        placeholder='email'
-      ></input>
-      <label>password</label>
-      <input
-        className='login-form-input'
-        type='password'
-        label='Password'
-        variant='outlined'
-        name='password'
-        onChange={(e) => handleInputChange(e)}
-        placeholder='password'
-      ></input>
+      <h1>Login</h1>
+      <div className='login-input-div'>
+        <span class='material-symbols-outlined'>mail</span>
+        <input
+          className='login-form-input'
+          type='email'
+          label='Email'
+          variant='outlined'
+          name='email'
+          onChange={(e) => handleInputChange(e)}
+          placeholder='email'
+        ></input>
+      </div>
+
+      <div className='login-input-div'>
+        <span class='material-symbols-outlined'>key</span>
+        <input
+          className='login-form-input'
+          type='password'
+          label='Password'
+          variant='outlined'
+          name='password'
+          onChange={(e) => handleInputChange(e)}
+          placeholder='password'
+        ></input>
+      </div>
 
       <button
         id='login-submit-button'
@@ -33,6 +38,17 @@ function LoginForm({ handleInputChange, handleLogin}) {
         Login
       </button>
 
+      <div className='login-no-account'>
+        Don't have an account yet?{' '}
+        <span
+          className='login-register-link'
+          onClick={() => {
+            setIsRegister(true);
+          }}
+        >
+          Register
+        </span>
+      </div>
     </form>
   );
 }
