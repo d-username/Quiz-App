@@ -88,6 +88,8 @@ h2 {
     padding: 10px;
     border-radius: 5px;
     width: -webkit-fill-available;
+    color: #000027;
+    font-weight: bold;
 }
 
 .question-form-input {
@@ -95,6 +97,8 @@ h2 {
     padding: 10px;
     border-radius: 5px;
     width: -webkit-fill-available;
+    color: #000027;
+    font-weight: bold;
 }
 
 .answer-form-input {
@@ -102,6 +106,8 @@ h2 {
     padding: 10px;
     border-radius: 5px;
     width: -webkit-fill-available;
+    color: #000027;
+    font-weight: bold;
 }
 
 #add-new-answer-button{
@@ -240,4 +246,39 @@ h2 {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+}
+
+.success-notification{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    background-color: #ff9900;
+    max-width: fit-content;
+    padding: 10px 50px 10px 10px;
+    border-radius: 8px 0px 0px 8px;
+    color: #000027;
+    font-weight: bold;
+
+    position: absolute;
+    right: -500px;
+    top: 60px;
+    -webkit-animation: slide 0.5s forwards;
+    animation: slide 0.5s forwards;
+}
+
+@-webkit-keyframes slide {
+    100% {
+        right: 0;
+    }
+}
+
+@keyframes slide {
+    100% {
+        right: 0;
+    }
+}
+
+
+.success-notification * {
+    color: #000027;
 }

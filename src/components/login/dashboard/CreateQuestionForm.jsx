@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 function CreateQuestionsForm() {
+  const [isSuccessVisible, setIsSuccessVisible] = useState(false)
   const [questionList, setQuestionList] = useState({
     title: '',
     questionsSet: [
@@ -23,6 +24,9 @@ function CreateQuestionsForm() {
       .then((response) => response.json())
       .then((data) => console.log('this is the response data', data));
 
+    
+    renderSuccessAlert()
+
     setQuestionList({
       title: '',
       questionsSet: [
@@ -34,6 +38,14 @@ function CreateQuestionsForm() {
     });
   };
 
+
+  const renderSuccessAlert = () => {
+    setIsSuccessVisible(true);
+
+    setTimeout(() => {setIsSuccessVisible(false)}, 3000);
+  }
+
+  
   const resetFields = (event) => {
     console.log('resetting');
     event.preventDefault();
@@ -152,6 +164,11 @@ function CreateQuestionsForm() {
   return (
     <form className='question-form' onSubmit={(e) => handleSubmit(e)}>
       <h1>Create Quiz</h1>
+      {isSuccessVisible && (
+        <div className='success-notification'>
+          <span class='material-symbols-outlined'>check_circle</span>success
+        </div>
+      )}
       <div className='question-form-title'>
         <p>Title</p>
         <input
@@ -191,6 +208,7 @@ function CreateQuestionsForm() {
                 <p>Answer #{index2 + 1}</p>
                 <div className='row-flex'>
                   <input
+                    className='checkbox'
                     type='checkbox'
                     value={singleAnswer.isThisCorrect}
                     onChange={(e) => handleCheckboxChange(e, index, index2)}
