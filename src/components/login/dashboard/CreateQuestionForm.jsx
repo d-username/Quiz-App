@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 function CreateQuestionsForm() {
   const [isSuccessVisible, setIsSuccessVisible] = useState(false)
-  const [questionList, setQuestionList] = useState({
+  const [quiz, setQuiz] = useState({
     title: '',
-    questionsSet: [
+    questions: [
     {
       question: '',
       answerList: [{ answer: '', isThisCorrect: false }],
@@ -13,23 +13,21 @@ function CreateQuestionsForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('submitting here');
 
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(questionList),
+      body: JSON.stringify(quiz),
     };
-    fetch('http://localhost:3005/questionSets/', requestOptions)
+    fetch('http://localhost:3500/api/quiz', requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log('this is the response data', data));
 
-    
+
     renderSuccessAlert()
 
-    setQuestionList({
+    setQuiz({
       title: '',
-      questionsSet: [
+      questions: [
         {
           question: '',
           answerList: [{ answer: '', isThisCorrect: false }],
@@ -47,12 +45,11 @@ function CreateQuestionsForm() {
 
   
   const resetFields = (event) => {
-    console.log('resetting');
     event.preventDefault();
 
-    setQuestionList({
+    setQuiz({
       title: '',
-      questionsSet: [
+      questions: [
         {
           question: '',
           answerList: [{ answer: '', isThisCorrect: false }],
@@ -65,100 +62,91 @@ function CreateQuestionsForm() {
     e.preventDefault();
     const { name, value } = e.target;
 
-    let copyQuestionList = { ...questionList };
-    let questionAtIndex = copyQuestionList.questionsSet[index];
+    let copyQuestionList = { ...quiz };
+    let questionAtIndex = copyQuestionList.questions[index];
     let theAnswers = questionAtIndex.answerList;
 
     theAnswers[index2][name] = value;
-    setQuestionList(copyQuestionList);
+    setQuiz(copyQuestionList);
 
-    console.log('questionlist after answer change', questionList);
   };
 
   const removeAnswer = (event, index, index2) => {
     event.preventDefault();
-    console.log('removing answer');
 
-    let copyQuestionList = { ...questionList };
-    let questionAtIndex = copyQuestionList.questionsSet[index];
+    let copyQuestionList = { ...quiz };
+    let questionAtIndex = copyQuestionList.questions[index];
     let theAnswers = questionAtIndex.answerList;
 
     theAnswers.splice(index2, 1);
-    setQuestionList(copyQuestionList);
+    setQuiz(copyQuestionList);
   };
 
   const addQuestion = (event) => {
     event.preventDefault();
 
-    let copyQuestionList = {...questionList}
-    copyQuestionList.questionsSet = [
-      ...copyQuestionList.questionsSet,
+    let copyQuestionList = {...quiz}
+    copyQuestionList.questions = [
+      ...copyQuestionList.questions,
       {
         question: '',
         answerList: [{ answer: '', isThisCorrect: false }],
       },
     ];
 
-    setQuestionList(copyQuestionList)
+    setQuiz(copyQuestionList)
   };
 
   const removeQuestion = (event, index) => {
-    console.log('removing question')
     event.preventDefault();
 
-    let copyQuestionList = { ...questionList };
-    copyQuestionList.questionsSet.splice(index, 1);
-    setQuestionList(copyQuestionList);
+    let copyQuestionList = { ...quiz };
+    copyQuestionList.questions.splice(index, 1);
+    setQuiz(copyQuestionList);
   };
 
   const handleQuestionChange = (e, index) => {
     e.preventDefault();
     const { name, value } = e.target;
 
-    let copyQuestionList = { ...questionList };
-    copyQuestionList.questionsSet[index][name] = value
+    let copyQuestionList = { ...quiz };
+    copyQuestionList.questions[index][name] = value
 
-    setQuestionList(copyQuestionList);
-    console.log(questionList);
+    setQuiz(copyQuestionList);
   };
 
   const addAnswer = (e, index) => {
     e.preventDefault();
-    console.log('adding an answer here');
 
-    let copyQuestionList = { ...questionList };
-    let theParticularQuestion = copyQuestionList.questionsSet[index];
+    let copyQuestionList = { ...quiz };
+    let theParticularQuestion = copyQuestionList.questions[index];
 
     theParticularQuestion.answerList = [
       ...theParticularQuestion.answerList,
       { answer: '', isThisCorrect: false },
     ];
-    setQuestionList(copyQuestionList)
-    console.log('updated questionlist', questionList);
+    setQuiz(copyQuestionList)
   };
 
   const handleCheckboxChange = (event, index, index2) => {
     event.preventDefault();
-    console.log('clicked')
     const value = event.target.checked;
 
-    let copyQuestionList = {...questionList};
-    let questionAtIndex = copyQuestionList.questionsSet[index];
+    let copyQuestionList = {...quiz};
+    let questionAtIndex = copyQuestionList.questions[index];
     let theAnswers = questionAtIndex.answerList;
 
     theAnswers[index2].isThisCorrect = value;
-    setQuestionList(copyQuestionList);
-    console.log('questionlist after answer change', questionList);
+    setQuiz(copyQuestionList);
   };
 
   const handleTitleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    let copyQuestionList = { ...questionList };
+    let copyQuestionList = { ...quiz };
     copyQuestionList[name] = value
 
-    setQuestionList(copyQuestionList);
-    console.log(questionList);
+    setQuiz(copyQuestionList);
   };
 
   return (
@@ -177,12 +165,12 @@ function CreateQuestionsForm() {
           label='title'
           name='title'
           placeholder='title'
-          value={questionList.title}
+          value={quiz.title}
           onChange={(e) => handleTitleChange(e)}
         ></input>
       </div>
 
-      {questionList.questionsSet.map((singleQuestion, index) => (
+      {quiz.questions.map((singleQuestion, index) => (
         <div key={index} className='question-panel'>
           <p>Question #{index + 1}</p>
           <div className='row-flex'>

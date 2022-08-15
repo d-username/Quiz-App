@@ -10,7 +10,7 @@ function ResultBoard({ score, currentQuiz, setShowResults, setScore }) {
       <img src='/images/check.png' alt='check-icon' width={100} />
       <p className="result-p">
         Your result is: {score.goodAnswers} out of {' '}
-        {currentQuiz.questionsSet.length}
+        {currentQuiz.questions.length}
       </p>
       <button
         className='button-reset greenButton'

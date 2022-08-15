@@ -1,15 +1,14 @@
 import { useState } from 'react';
 
 function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
-  const [answers, setAnswers] = useState(currentQuiz.questionsSet);
-
+  const [answers, setAnswers] = useState(currentQuiz.questions);
 
   const handleRadioChange = (event, index, index2) => {
     event.preventDefault();
 
     let answersCopy = answers;
     let theParticularQuestion = answersCopy[index];
-    let theParticularAnswerList = [...theParticularQuestion.answerList];
+    let theParticularAnswerList = [...theParticularQuestion.answers];
 
     theParticularAnswerList.forEach((answer) => {
       delete answer.givenAnswer;
@@ -23,19 +22,14 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
 
   const resetFields = (e) => {
     e.preventDefault();
-    console.log('resetting');
   };
 
   const SubmitAnswers = (e) => {
     e.preventDefault();
-    console.log('submitting here');
-    console.log('answers are here: ',answers);
 
-    let copyAnswers = answers;
-
-    for (let q = 0; q < copyAnswers.length; q++) {
-      let currentQuestion = copyAnswers[q];
-      let currentQsAnswerList = currentQuestion.answerList;
+    for (let q = 0; q < answers.length; q++) {
+      let currentQuestion = answers[q];
+      let currentQsAnswerList = currentQuestion.answers;
 
       currentQsAnswerList.forEach((answer) => {
         if (answer.givenAnswer === true && answer.isThisCorrect === true) {
@@ -64,12 +58,12 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
       <h1>Take Quiz</h1>
       <h2>{currentQuiz.title}</h2>
       <ul className='takequiz-question-list'>
-        {currentQuiz.questionsSet.map((question, index) => (
+        {currentQuiz.questions.map((question, index) => (
           <li key={index} className='takequiz-question-card'>
             <div className='takequiz-question'>{question.question}</div>
 
             <ul className='takequiz-answers-list'>
-              {question.answerList.map((answer, index2) => (
+              {question.answers.map((answer, index2) => (
                 <li key={index2} className='takequiz-answer-card'>
                   <input
                     type='radio'

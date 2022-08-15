@@ -1,17 +1,14 @@
 function QuizList({ setActive, quizes, setCurrentQuiz, deleteQuiz }) {
   const handleSelectedQuiz = (quiz) => {
-    console.log(quiz);
     setActive('TakeQuiz');
     setCurrentQuiz(quiz);
   };
 
   const deleteQuizFromList = (id) => {
-    console.log('delete quiz with index:', id);
 
-    fetch(`http://localhost:3005/questionSets/${id}`, {
+    fetch(`http://localhost:3500/api/quiz/${id}`, {
       method: 'DELETE',
     }).then(() => {
-      console.log('deleting is successful???');
       deleteQuiz(id);
     });
   };
@@ -23,7 +20,7 @@ function QuizList({ setActive, quizes, setCurrentQuiz, deleteQuiz }) {
         <li key={index} className='quizlist-item'>
           <div>
             <p>Title: {quiz.title}</p>
-            <p>Number of questions: {quiz.questionsSet.length}</p>
+            <p>Number of questions: {quiz.questions.length}</p>
           </div>
 
           <button

@@ -13,7 +13,6 @@ function LoginPage({ setLoggedInUser }) {
       .then((res) => res.json())
       .then((data) => {
         setUsers(data)
-        console.log(users);
       });
   }, []);
 
@@ -23,14 +22,10 @@ function LoginPage({ setLoggedInUser }) {
     let copyUserInput = userInput
     copyUserInput[name] = value
     setUserInput(copyUserInput);
-    console.log(userInput)
   }
 
     const handleLogin = (e) => {
       e.preventDefault();
-
-      console.log('trying to log in')
-      console.log('users: ', users)
       
       for(let i=0; i<users.length; i++) {
         if (
@@ -38,14 +33,12 @@ function LoginPage({ setLoggedInUser }) {
           users[i].password === userInput.password
         ) {
           setLoggedInUser(users[i]);
-          console.log('matching')
         }
       }
     };
 
     const handleRegister = (e) => {
        e.preventDefault();
-       console.log('registering')
 
        const requestOptions = {
          method: 'POST',
@@ -54,7 +47,6 @@ function LoginPage({ setLoggedInUser }) {
        };
        fetch('http://localhost:3005/users/', requestOptions)
          .then((response) => response.json())
-         .then((data) => console.log('this is the response data', data));
 
        setUserInput({ name: '', email: '', password: '' });
 

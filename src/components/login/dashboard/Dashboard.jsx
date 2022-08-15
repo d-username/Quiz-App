@@ -16,10 +16,10 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
   const [quizDeleted, setQuizDeleted] = useState(0)
 
   useEffect(() => {
-    fetch('http://localhost:3005/questionSets')
+    fetch('http://localhost:3500/api/quiz')
       .then((res) => res.json())
       .then((data) => {
-        setQuizes(data);
+        setQuizes(data.quizes);
       });
   }, [active, quizDeleted]);
 
@@ -27,7 +27,6 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
       fetch('http://localhost:3005/stats')
         .then((res) => res.json())
         .then((data) => {
-          console.log('stats data', data)
           setStatsData(data)
         });
     }, [active]);
@@ -36,13 +35,11 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
          fetch('http://localhost:3005/users')
            .then((res) => res.json())
            .then((data) => {
-             console.log('users data', data);
              setNrOfUsers(data.length);
            });
        }, [active]); 
 
   const deleteQuiz = () => {
-    console.log('deleted a quiz')
     let nr = quizDeleted;
     nr ++
     setQuizDeleted(nr);
