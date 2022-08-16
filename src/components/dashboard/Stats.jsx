@@ -2,7 +2,7 @@ export default function Stats({ statsData, nrOfUsers }) {
   return (
     <div>
       <h1>Info</h1>
-      <div className='stats-grid'>
+      {/* <div className='stats-grid'>
         <p className='stats-panels'>
           Number of quizes taken{' '}
           <span className='stats-number'>{statsData.quizes_taken}</span>
@@ -18,7 +18,7 @@ export default function Stats({ statsData, nrOfUsers }) {
           Number of bad answers{' '}
           <span className='stats-number'>{statsData.total_bad_answers}</span>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }
