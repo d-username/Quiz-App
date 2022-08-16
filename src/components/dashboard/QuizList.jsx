@@ -1,11 +1,21 @@
-function QuizList({ setActive, quizes, setCurrentQuiz, deleteQuiz }) {
+import { useEffect, useState } from 'react';
+
+function QuizList({ setActive, setCurrentQuiz, deleteQuiz }) {
+  const [quizes, setQuizes] = useState([]);
   const handleSelectedQuiz = (quiz) => {
     setActive('TakeQuiz');
     setCurrentQuiz(quiz);
   };
 
-  const deleteQuizFromList = (id) => {
+  useEffect(() => {
+    fetch('http://localhost:3500/api/quiz')
+      .then((res) => res.json())
+      .then((data) => {
+        setQuizes(data.quizes);
+      });
+  }, []);
 
+  const deleteQuizFromList = (id) => {
     fetch(`http://localhost:3500/api/quiz/${id}`, {
       method: 'DELETE',
     }).then(() => {

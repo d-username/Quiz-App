@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import ResultBoard from './ResultBoard';
 
-function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
+function TakeQuiz({ currentQuiz, score, setScore }) {
   const [answers, setAnswers] = useState(currentQuiz.questions);
+  const [showResults, setShowResults] = useState(false);
 
   const handleRadioChange = (event, index, index2) => {
     event.preventDefault();
@@ -53,6 +55,7 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
   };
 
 
+
   return (
     <form className='takequiz'>
       <h1>Take Quiz</h1>
@@ -99,6 +102,16 @@ function TakeQuiz({ currentQuiz, setShowResults, score, setScore }) {
           submit
         </button>
       </div>
+
+      
+  {showResults === true && (
+      <ResultBoard
+        score={score}
+        currentQuiz={currentQuiz}
+        setShowResults={setShowResults}
+        setScore={setScore}
+      />)}
+
     </form>
   );
 }

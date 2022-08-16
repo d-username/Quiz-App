@@ -1,42 +1,15 @@
 import CreateQuestionsForm from "./CreateQuestionForm";
 import TakeQuiz from "./TakeQuiz";
 import QuizList from "./QuizList";
-import ResultBoard from "./ResultBoard";
 import Stats from "./Stats";
 import Home from "./Home"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Route, Routes } from 'react-router';
 import { Link } from 'react-router-dom';
 
 export default function Dashboard({ setLoggedInUser, loggedInUser }) {
-  const [quizes, setQuizes] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState();
-  const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState({ goodAnswers: 0 });
-
-  useEffect(() => {
-    fetch('http://localhost:3500/api/quiz')
-      .then((res) => res.json())
-      .then((data) => {
-        setQuizes(data.quizes);
-      });
-  }, []);
-
-    // useEffect(() => {
-    //   fetch('http://localhost:3005/stats')
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       setStatsData(data)
-    //     });
-    // }, [active]);
-
-      //  useEffect(() => {
-      //    fetch('http://localhost:3005/users')
-      //      .then((res) => res.json())
-      //      .then((data) => {
-      //        setNrOfUsers(data.length);
-      //      });
-      //  }, [active]); 
 
   return (
     <div className='dashboard'>
@@ -48,7 +21,6 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
             path='/quizlist'
             element={
               <QuizList
-                quizes={quizes}
                 setCurrentQuiz={setCurrentQuiz}
               />
             }
@@ -58,7 +30,6 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
             element={
               <TakeQuiz
                 currentQuiz={currentQuiz}
-                setShowResults={setShowResults}
                 score={score}
                 setScore={setScore}
               />
@@ -69,15 +40,6 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
             element={<Stats/>}
           />
         </Routes>
-
-        {showResults === true && (
-          <ResultBoard
-            score={score}
-            currentQuiz={currentQuiz}
-            setShowResults={setShowResults}
-            setScore={setScore}
-          />
-        )}
       </main>
 
       <aside className='aside'>
