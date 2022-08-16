@@ -1,4 +1,6 @@
-function LoginForm({ handleInputChange, handleLogin, setIsRegister }) {
+import { Link } from 'react-router-dom';
+
+function LoginForm({ handleInputChange, handleLogin }) {
   return (
     <form className='login-form' onSubmit={(e) => handleLogin(e)}>
       <h1>Login</h1>
@@ -42,15 +44,12 @@ function LoginForm({ handleInputChange, handleLogin, setIsRegister }) {
         Don't have an account yet?{' '}
         <span
           className='login-register-link'
-          onClick={() => {
-            setIsRegister(true);
-          }}
         >
-          Register
+          <Link to='/register'>Register</Link>
         </span>
       </div>
     </form>
   );
 }
 
-export default LoginForm
+export default LoginForm;

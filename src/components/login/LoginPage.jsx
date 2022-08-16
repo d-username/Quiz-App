@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import { Route, Routes } from 'react-router';
 
 function LoginPage({ setLoggedInUser }) {
   const [userInput, setUserInput] = useState({
@@ -8,7 +9,6 @@ function LoginPage({ setLoggedInUser }) {
     email: '',
     password: '',
   });
-  const [isRegister, setIsRegister] = useState(false);
   const [users, setUsers] = useState();
   const [isSuccessREGVisible, setIsSuccessREGVisible] = useState(false);
 
@@ -52,39 +52,16 @@ function LoginPage({ setLoggedInUser }) {
     fetch('http://localhost:3005/users/', requestOptions).then((response) =>
       response.json()
     );
-
     setUserInput({ name: '', email: '', password: '' });
-
     renderSuccessAlert();
   };
 
   const renderSuccessAlert = () => {
     setIsSuccessREGVisible(true);
-
     setTimeout(() => {
       setIsSuccessREGVisible(false);
     }, 3000);
   };
-
-  return (
-    <div className='login-page'>
-      {isRegister ? (
-        <RegisterForm
-          handleInputChange={handleInputChange}
-          handleRegister={handleRegister}
-          setIsRegister={setIsRegister}
-          isSuccessREGVisible={isSuccessREGVisible}
-          renderSuccessAlert={renderSuccessAlert}
-        />
-      ) : (
-        <LoginForm
-          handleLogin={handleLogin}
-          handleInputChange={handleInputChange}
-          setIsRegister={setIsRegister}
-        />
-      )}
-    </div>
-  );
 }
 
 export default LoginPage;

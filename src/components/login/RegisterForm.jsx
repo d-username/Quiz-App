@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
+
 function RegisterForm({
   handleInputChange,
   handleRegister,
-  setIsRegister,
   isSuccessREGVisible,
 }) {
   return (
@@ -64,11 +65,8 @@ function RegisterForm({
         Do you already have an account?{' '}
         <span
           className='login-register-link'
-          onClick={() => {
-            setIsRegister(false);
-          }}
         >
-          Login
+          <Link to='/login'>Login</Link>
         </span>
       </div>
     </form>
