@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function QuizList({ setActive, setCurrentQuiz, deleteQuiz }) {
+function QuizList({ setCurrentQuiz}) {
   const [quizes, setQuizes] = useState([]);
-  const handleSelectedQuiz = (quiz) => {
-    setActive('TakeQuiz');
-    setCurrentQuiz(quiz);
-  };
 
   useEffect(() => {
     fetch('http://localhost:3500/api/quiz')
@@ -15,12 +12,19 @@ function QuizList({ setActive, setCurrentQuiz, deleteQuiz }) {
       });
   }, []);
 
-  const deleteQuizFromList = (id) => {
+  const deleteQuiz = (id) => {
     fetch(`http://localhost:3500/api/quiz/${id}`, {
       method: 'DELETE',
-    }).then(() => {
-      deleteQuiz(id);
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('deleted this', data)
+        fetch('http://localhost:3500/api/quiz')
+          .then((res) => res.json())
+          .then((data) => {
+            setQuizes(data.quizes);
+          });
+      });
   };
 
   return (
@@ -33,15 +37,18 @@ function QuizList({ setActive, setCurrentQuiz, deleteQuiz }) {
             <p>Number of questions: {quiz.questions.length}</p>
           </div>
 
-          <button
-            className='button-reset greenButton'
-            onClick={() => handleSelectedQuiz(quiz)}
-          >
-            Take Quiz
+          <button className='button-reset greenButton'>
+            <Link
+              to={`/takeQuiz/${quiz.id}`}
+              onClick={() => setCurrentQuiz(quiz)}
+            >
+              Take Quiz
+            </Link>
           </button>
+
           <span
             className='material-symbols-rounded'
-            onClick={() => deleteQuizFromList(quiz.id)}
+            onClick={() => deleteQuiz(quiz.id)}
           >
             delete
           </span>

@@ -19,14 +19,10 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
           <Route path='/create' element={<CreateQuestionsForm />} />
           <Route
             path='/quizlist'
-            element={
-              <QuizList
-                setCurrentQuiz={setCurrentQuiz}
-              />
-            }
+            element={<QuizList setCurrentQuiz={setCurrentQuiz} />}
           />
           <Route
-            path='/takequiz'
+            path='/takequiz/:id'
             element={
               <TakeQuiz
                 currentQuiz={currentQuiz}
@@ -35,10 +31,8 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
               />
             }
           />
-          <Route
-            path='/stats'
-            element={<Stats/>}
-          />
+
+          <Route path='/stats' element={<Stats />} />
         </Routes>
       </main>
 
@@ -51,7 +45,7 @@ export default function Dashboard({ setLoggedInUser, loggedInUser }) {
 
           <li>
             <Link to='/'>Home</Link>;
-          </li> 
+          </li>
 
           <li>
             <span class='material-symbols-outlined'>edit</span>
