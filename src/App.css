@@ -55,13 +55,20 @@ h2 {
     margin: 20px;
     border-radius: 10px;
     padding: 15px;
+    display: grid;
+}
+
+.aside-ul * {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .aside * {
     color:#000027;
     font-weight: bold;
+    padding: 5px;
 }
-
 
 .question-panel {
     margin: 20px;

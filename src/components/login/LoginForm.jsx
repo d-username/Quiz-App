@@ -1,6 +1,38 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-function LoginForm({ handleInputChange, handleLogin }) {
+function LoginForm({ setLoggedInUser, loggedInUser }) {
+  const navigate = useNavigate();
+  const [userInput, setUserInput] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    let copyUserInput = userInput;
+    copyUserInput[name] = value;
+    setUserInput(copyUserInput);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log('in handle login');
+    fetch(`http://localhost:3500/api/user/${userInput.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setLoggedInUser(data);
+      });
+
+      // console.log('userinput', userInput)
+      // console.log('database info', loggedInUser);
+    if (userInput.password === loggedInUser.password) {
+      navigate('/create');
+    } else {
+      console.log('passwords dont match')
+    }
+  };
+
   return (
     <form className='login-form' onSubmit={(e) => handleLogin(e)}>
       <h1>Login</h1>
@@ -42,9 +74,7 @@ function LoginForm({ handleInputChange, handleLogin }) {
 
       <div className='login-no-account'>
         Don't have an account yet?{' '}
-        <span
-          className='login-register-link'
-        >
+        <span className='login-register-link'>
           <Link to='/register'>Register</Link>
         </span>
       </div>

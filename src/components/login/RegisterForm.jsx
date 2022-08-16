@@ -1,10 +1,43 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-function RegisterForm({
-  handleInputChange,
-  handleRegister,
-  isSuccessREGVisible,
-}) {
+function RegisterForm() {
+  const [isSuccessREGVisible, setIsSuccessREGVisible] = useState(false)
+  const [userInput, setUserInput] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    let copyUserInput = userInput;
+    copyUserInput[name] = value;
+    setUserInput(copyUserInput);
+    console.log(userInput);
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userInput),
+    };
+    fetch('http://localhost:3500/api/user', requestOptions).then((response) =>
+      response.json()
+    );
+    setUserInput({ name: '', email: '', password: '' });
+    renderSuccessAlert();
+  };
+
+  const renderSuccessAlert = () => {
+    setIsSuccessREGVisible(true);
+    setTimeout(() => {
+      setIsSuccessREGVisible(false);
+    }, 3000);
+  };
+
   return (
     <form className='login-form' onSubmit={(e) => handleRegister(e)}>
       <h1>Register</h1>
@@ -55,7 +88,6 @@ function RegisterForm({
         id='register-submit-button'
         className='button-reset greenButton'
         type='submit'
-        variant='contained'
       >
         <span class='material-symbols-outlined'>login</span>
         Register
@@ -63,9 +95,7 @@ function RegisterForm({
 
       <div className='login-no-account'>
         Do you already have an account?{' '}
-        <span
-          className='login-register-link'
-        >
+        <span className='login-register-link'>
           <Link to='/login'>Login</Link>
         </span>
       </div>
@@ -74,3 +104,5 @@ function RegisterForm({
 }
 
 export default RegisterForm;
+
+
