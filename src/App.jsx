@@ -13,7 +13,7 @@ import RegisterForm from './components/login/RegisterForm';
 export default function App() {
   const [currentQuiz, setCurrentQuiz] = useState();
   const [score, setScore] = useState({ goodAnswers: 0 });
-  const [loggedInUser, setLoggedInUser] = useState();
+  const [loggedInUser, setLoggedInUser] = useState({user: 'David'});
 
   const handleLogout = (e) => {
     e.preventDefault()
